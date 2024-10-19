@@ -1,6 +1,5 @@
-package com.recipePrice.recipePrice.application;
+package com.recipePrice.recipePrice.entities;
 
-import com.recipePrice.recipePrice.dtos.ProductRequest;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -20,11 +19,6 @@ public class Product {
     private UUID id;
     private String name;
     private String unitOfMeasurement;
-    private Double price;
+    private Float price;
 
-    public Product(ProductRequest productRequest) {
-        this.name = productRequest.name();
-        this.unitOfMeasurement = productRequest.unitOfMeasurement();
-        this.price = productRequest.price();
-    }
 }

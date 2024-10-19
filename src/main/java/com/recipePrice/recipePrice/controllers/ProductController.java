@@ -1,10 +1,12 @@
 package com.recipePrice.recipePrice.controllers;
 
 
-import com.recipePrice.recipePrice.application.Product;
+import com.recipePrice.recipePrice.dtos.ProductResponse;
+import com.recipePrice.recipePrice.entities.Product;
 import com.recipePrice.recipePrice.dtos.ProductRequest;
-import com.recipePrice.recipePrice.repositories.ProductRepository;
+import com.recipePrice.recipePrice.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -15,12 +17,11 @@ import org.springframework.web.bind.annotation.RestController;
 public class ProductController {
 
     @Autowired
-    private ProductRepository productRepository;
+    private ProductService productService;
     @PostMapping
-    public ResponseEntity registerProduct(@RequestBody  ProductRequest productRequest) {
-        Product newProduct = new Product(productRequest);
-        productRepository.save(newProduct);
-        return ResponseEntity.ok(newProduct);
+    public ResponseEntity<ProductResponse> registerProduct(@RequestBody  ProductRequest productRequest) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(productService.saveProduct(productRequest));
+
     }
 
 }
