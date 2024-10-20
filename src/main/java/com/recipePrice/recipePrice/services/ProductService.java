@@ -19,9 +19,13 @@ public class ProductService {
         prod.setName(productRequest.name());
         prod.setUnitOfMeasurement(productRequest.unitOfMeasurement());
         prod.setPrice(productRequest.price());
+        System.out.println("Dados a ser salvo na tabela produto " + prod);
         Product productSaved = productRepository.save(prod);
-        ProductResponse prodResp = new ProductResponse(productSaved.getName(), productSaved.getUnitOfMeasurement(), productSaved.getPrice());
+        System.out.println("Os dados "+ productSaved + " foram inseridos na tabela produto ");
+        ProductResponse prodResp = new ProductResponse(productSaved.getName(),productSaved.getUnitOfMeasurement(), productSaved.getPrice());
+        System.out.println("Retorno para o Cliente " + prodResp);
         return prodResp;
 
     }
+
 }

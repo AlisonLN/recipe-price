@@ -21,4 +21,10 @@ public class Product {
     private String unitOfMeasurement;
     private Float price;
 
+    @Override
+    public String toString() {
+        return  "Name : " + name +",  "+
+                "UnitOfMeasurement : " + unitOfMeasurement +",  "+
+                "Price: " + price ;
+    }
 }
