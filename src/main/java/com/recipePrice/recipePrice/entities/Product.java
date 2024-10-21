@@ -1,4 +1,4 @@
-package com.recipePrice.recipePrice.application;
+package com.recipePrice.recipePrice.entities;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -8,7 +8,6 @@ import lombok.Setter;
 
 import java.util.UUID;
 @Entity
-@Table(name = "product")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -20,6 +19,12 @@ public class Product {
     private UUID id;
     private String name;
     private String unitOfMeasurement;
-    private Double price;
+    private Float price;
 
+    @Override
+    public String toString() {
+        return  "Name : " + name +",  "+
+                "UnitOfMeasurement : " + unitOfMeasurement +",  "+
+                "Price: " + price ;
+    }
 }
