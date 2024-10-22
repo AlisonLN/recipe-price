@@ -9,6 +9,10 @@ COPY src /app/src
 
 WORKDIR /app
 
+ENV DATABASE_URL=${DATABASE_URL}
+ENV PGUSER=${PGUSER}
+ENV PGPASSWORD=${PGPASSWORD}
+
 # Usar o Maven Wrapper para construir o projeto e listar o conteúdo de target
 RUN ./mvnw clean install && ls target/
 
