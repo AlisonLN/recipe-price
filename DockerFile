@@ -1,16 +1,31 @@
-FROM ghcr.io/railwayapp/nixpacks:ubuntu-1727136237
+FROM maven:3.9.7-amazoncorretto-17 AS build
+# Etapa de build usando Amazon Corretto e Maven Wrapper
+FROM amazoncorretto:17-alpine-jdk AS build
 
-# Definindo o diretório de trabalho
-WORKDIR /app/
+COPY src /app/src
+# Copiar o Maven Wrapper e o projeto para o diretório de trabalho no container
+COPY .mvn /app/.mvn
+COPY mvnw /app/mvnw
+COPY pom.xml /app
+COPY src /app/src
 
-# Copiando o código da aplicação para o container
-COPY ../../../../../../target /app/.
+WORKDIR /app
 
-# Executando o build da aplicação
-RUN chmod +x ./mvnw && ./mvnw -B -DskipTests clean install
+RUN mvn clean install
+# Usar o Maven Wrapper para construir o projeto e listar o conteúdo de target
+RUN ./mvnw clean install && ls target/
 
-# Expondo a porta que sua aplicação usa
+# Segunda etapa: criar a imagem final para rodar a aplicação
+FROM amazoncorretto:17-alpine-jdk
+
+# Copiar o JAR gerado na etapa de build para a imagem final
+COPY --from=build /app/target/agenda-0.0.1-SNAPSHOT.jar /app/app.jar
+
+WORKDIR /app
+
+# Expor a porta 8080 (onde a aplicação será executada)
 EXPOSE 8080
 
-# Comando para rodar a aplicação
-CMD ["java", "-jar", "target/seu-projeto.jar"]
+CMD ["java", "-jar", "app.jar"]
+# Comando para rodar o JAR
+CMD ["java", "-jar", "app.jar"]
