@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/products")
@@ -27,6 +28,11 @@ public class ProductController {
     public ResponseEntity<List<ProductResponse>> getAllProduct() {
     System.out.println("Realizado uma requisição GetAllProducts endpoint(/products)");
     return ResponseEntity.status(HttpStatus.OK).body(productService.getAllProducts());
+    }
+    @GetMapping("/{id}")
+    public ResponseEntity<ProductResponse> getIdProducts(@PathVariable UUID id) {
+        System.out.println("Realizando uma requisao GetIdProducts enpoint(/products/id)");
+        return ResponseEntity.status(HttpStatus.OK).body(productService.getIdProducts(id));
     }
 
 

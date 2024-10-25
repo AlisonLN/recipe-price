@@ -7,6 +7,8 @@ import com.recipePrice.recipePrice.repositories.ProductRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -25,7 +27,7 @@ public class ProductService {
         System.out.println("Dados a ser salvo na tabela produto " + prod);
         Product productSaved = productRepository.save(prod);
         System.out.println("Os dados " + productSaved + " foram inseridos na tabela produto ");
-        ProductResponse prodResp = new ProductResponse(productSaved.getName(), productSaved.getUnitOfMeasurement(), productSaved.getPrice());
+        ProductResponse prodResp = new ProductResponse(productSaved.getId(),productSaved.getName(), productSaved.getUnitOfMeasurement(), productSaved.getPrice());
         System.out.println("Retorno para o Cliente " + prodResp);
         return prodResp;
 
@@ -36,10 +38,19 @@ public class ProductService {
         List<Product> products  = productRepository.findAll();
         System.out.println("A Busca Foi realizada com Sucesso ");
         List<ProductResponse> getResponse =  products.stream()
-        .map(product -> new ProductResponse(product.getName(), product.getUnitOfMeasurement(), product.getPrice())).collect(Collectors.toList());
+        .map(product -> new ProductResponse(product.getId(),product.getName(), product.getUnitOfMeasurement(), product.getPrice())).collect(Collectors.toList());
         System.out.println("A lista  Response foi Criada com Sucesso ");
         return getResponse;
 
+    }
+    public ProductResponse getIdProducts(UUID id) {
+        System.out.println("Iniciando metodo para busca no banco de dados por UUID");
+        Optional<Product> product =  productRepository.findById(id);
+        System.out.println("Produto Encontrado na Base de dados");
+        ProductResponse productResponse =
+        product.map(product1 -> new ProductResponse(product1.getId(), product1.getName(), product1.getUnitOfMeasurement(), product1.getPrice())).get();
+        System.out.println("Objeto retirado do banco de dados : " + productResponse);
+        return productResponse;
     }
 
 }

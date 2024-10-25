@@ -23,7 +23,8 @@ public class Product {
 
     @Override
     public String toString() {
-        return  "Name : " + name +",  "+
+        return  "UUID : " + id +",  "+
+                "Name : " + name +",  "+
                 "UnitOfMeasurement : " + unitOfMeasurement +",  "+
                 "Price: " + price ;
     }

@@ -1,12 +1,16 @@
 package com.recipePrice.recipePrice.dtos;
 
-public record ProductResponse(String name,
-                              String unitOfMeasurement,
-                              Float price )  {
+import java.util.UUID;
+
+public record ProductResponse(  UUID id,
+                                String name,
+                                String unitOfMeasurement,
+                                Float price )  {
 
     @Override
     public String toString() {
-        return "ProductResponse : " +
+        return "ProductResponse : "+
+                "UUID : " + id +",  "+
                 "Name : " + name +",  "+
                 "UnitOfMeasurement : " + unitOfMeasurement +",  "+
                 "Price: " + price ;
