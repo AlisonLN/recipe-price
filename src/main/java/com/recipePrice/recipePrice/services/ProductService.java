@@ -32,8 +32,13 @@ public class ProductService {
     }
 
     public List<ProductResponse> getAllProducts() {
-        return productRepository.findAll().stream()
+        System.out.println("Iniciando Metodo Para Buscar Dados");
+        List<Product> products  = productRepository.findAll();
+        System.out.println("Objetos Recebi do getAll");
+        List<ProductResponse> getResponse =  products.stream()
         .map(product -> new ProductResponse(product.getName(), product.getUnitOfMeasurement(), product.getPrice())).collect(Collectors.toList());
+        System.out.println("Lista  de Product Response criada com sucesso ");
+        return getResponse;
 
     }
 
