@@ -3,6 +3,7 @@ package com.recipePrice.recipePrice.controllers;
 
 import com.recipePrice.recipePrice.dtos.ProductResponse;
 import com.recipePrice.recipePrice.dtos.ProductRequest;
+import com.recipePrice.recipePrice.entities.Product;
 import com.recipePrice.recipePrice.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,7 +22,12 @@ public class ProductController {
     public ResponseEntity<ProductResponse> registerProduct(@RequestBody ProductRequest productRequest) {
         System.out.println("Dados recebido no body de entrada  : " + productRequest);
         return ResponseEntity.status(HttpStatus.CREATED).body(productService.saveProduct(productRequest));
-
     }
+    @GetMapping
+    public ResponseEntity<List<ProductResponse>> getAllProduct() {
+    System.out.println("Realizado uma requisição GetAllProducts endpoint(/products)");
+    return ResponseEntity.status(HttpStatus.OK).body(productService.getAllProducts());
+    }
+
 
 }
