@@ -32,12 +32,12 @@ public class ProductService {
     }
 
     public List<ProductResponse> getAllProducts() {
-        System.out.println("Iniciando Metodo Para Buscar Dados");
+        System.out.println("Iniciando Metodo Para Fazer Busca no Banco de Dados");
         List<Product> products  = productRepository.findAll();
-        System.out.println("Objetos Recebi do getAll");
+        System.out.println("A Busca Foi realizada com Sucesso ");
         List<ProductResponse> getResponse =  products.stream()
         .map(product -> new ProductResponse(product.getName(), product.getUnitOfMeasurement(), product.getPrice())).collect(Collectors.toList());
-        System.out.println("Lista  de Product Response criada com sucesso ");
+        System.out.println("A lista  Response foi Criada com Sucesso ");
         return getResponse;
 
     }
