@@ -27,7 +27,7 @@ public class ProductService {
         System.out.println("Dados a ser salvo na tabela produto " + prod);
         Product productSaved = productRepository.save(prod);
         System.out.println("Os dados " + productSaved + " foram inseridos na tabela produto ");
-        ProductResponse prodResp = new ProductResponse(productSaved.getId(),productSaved.getName(), productSaved.getUnitOfMeasurement(), productSaved.getPrice());
+        ProductResponse prodResp = new ProductResponse(productSaved.getId(), productSaved.getName(), productSaved.getUnitOfMeasurement(), productSaved.getPrice());
         System.out.println("Retorno para o Cliente " + prodResp);
         return prodResp;
 
@@ -35,22 +35,31 @@ public class ProductService {
 
     public List<ProductResponse> getAllProducts() {
         System.out.println("Iniciando Metodo Para Fazer Busca no Banco de Dados");
-        List<Product> products  = productRepository.findAll();
+        List<Product> products = productRepository.findAll();
         System.out.println("A Busca Foi realizada com Sucesso ");
-        List<ProductResponse> getResponse =  products.stream()
-        .map(product -> new ProductResponse(product.getId(),product.getName(), product.getUnitOfMeasurement(), product.getPrice())).collect(Collectors.toList());
+        List<ProductResponse> getResponse = products.stream()
+                .map(product -> new ProductResponse(product.getId(), product.getName(), product.getUnitOfMeasurement(), product.getPrice())).collect(Collectors.toList());
         System.out.println("A lista  Response foi Criada com Sucesso ");
         return getResponse;
 
     }
+
     public ProductResponse getIdProducts(UUID id) {
         System.out.println("Iniciando metodo para busca no banco de dados por UUID");
-        Optional<Product> product =  productRepository.findById(id);
+        Optional<Product> product = productRepository.findById(id);
         System.out.println("Produto Encontrado na Base de dados");
         ProductResponse productResponse =
-        product.map(product1 -> new ProductResponse(product1.getId(), product1.getName(), product1.getUnitOfMeasurement(), product1.getPrice())).get();
+                product.map(product1 -> new ProductResponse(product1.getId(), product1.getName(), product1.getUnitOfMeasurement(), product1.getPrice())).get();
         System.out.println("Objeto retirado do banco de dados : " + productResponse);
         return productResponse;
     }
 
+    public ProductResponse getProductByName(String name) {
+        System.out.println("Iniciando Metodo Para Fazer Busca no Banco de Dados Por Nome");
+            Optional<Product> products = productRepository.findByName(name);
+            System.out.println("Nome encontrado no banco de dados : " + products);
+            ProductResponse productResponse2 = products.map(products2 -> new ProductResponse(products2.getId(), products2.getName(), products2.getUnitOfMeasurement(), products2.getPrice())).get();
+            System.out.println("Objeto retirado do banco de dados : " + productResponse2);
+            return productResponse2;
+    }
 }

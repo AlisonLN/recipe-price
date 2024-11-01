@@ -3,7 +3,6 @@ package com.recipePrice.recipePrice.controllers;
 
 import com.recipePrice.recipePrice.dtos.ProductResponse;
 import com.recipePrice.recipePrice.dtos.ProductRequest;
-import com.recipePrice.recipePrice.entities.Product;
 import com.recipePrice.recipePrice.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -11,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @RestController
@@ -33,6 +33,11 @@ public class ProductController {
     public ResponseEntity<ProductResponse> getIdProducts(@PathVariable UUID id) {
         System.out.println("Realizando uma requisao GetIdProducts enpoint(/products/id)");
         return ResponseEntity.status(HttpStatus.OK).body(productService.getIdProducts(id));
+    }
+    @GetMapping(params = "name")
+    public ResponseEntity<ProductResponse> getProductByName (@RequestParam String name) {
+        System.out.println("Entrada GetProductByName");
+        return ResponseEntity.status(HttpStatus.OK).body(productService.getProductByName(name));
     }
 
 
