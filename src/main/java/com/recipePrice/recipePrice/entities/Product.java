@@ -1,12 +1,12 @@
 package com.recipePrice.recipePrice.entities;
 
 import jakarta.persistence.*;
+import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.UUID;
 @Entity
 @Getter
 @Setter
@@ -14,18 +14,26 @@ import java.util.UUID;
 @AllArgsConstructor
 public class Product {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
-    private String name;
-    private String unitOfMeasurement;
-    private Float price;
+  @Id
+  @GeneratedValue(strategy = GenerationType.UUID)
+  private UUID id;
 
-    @Override
-    public String toString() {
-        return  "UUID : " + id +",  "+
-                "Name : " + name +",  "+
-                "UnitOfMeasurement : " + unitOfMeasurement +",  "+
-                "Price: " + price ;
-    }
+  private String name;
+  private String unitOfMeasurement;
+  private Float price;
+
+  @Override
+  public String toString() {
+    return "UUID : "
+        + id
+        + ",  "
+        + "Name : "
+        + name
+        + ",  "
+        + "UnitOfMeasurement : "
+        + unitOfMeasurement
+        + ",  "
+        + "Price: "
+        + price;
+  }
 }
